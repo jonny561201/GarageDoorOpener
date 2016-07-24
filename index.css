@@ -1,0 +1,42 @@
+.header {
+    background: #009933;
+    text-align: center;
+    height: 90px;
+}
+
+body {
+    margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.bumper {
+    background: #006622;
+    height: 8px;
+}
+
+.content {
+    text-align: center;
+    background: #beb3a7;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+h1 {
+    padding-top: 20px;
+    color: white;
+    font-family: sans-serif;
+    text-shadow: 2px 2px black;
+}
+
+h2 {
+    margin: 0;
+    padding-top: 15px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+#ButtonImage {
+    height: 50%;
+}
