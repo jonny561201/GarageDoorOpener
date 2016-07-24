@@ -1,4 +1,4 @@
-.header {
+#header {
     background: #009933;
     text-align: center;
     height: 90px;
@@ -10,7 +10,7 @@ body {
 	height: 100%;
 }
 
-.bumper {
+#bumper {
     background: #006622;
     height: 8px;
 }
