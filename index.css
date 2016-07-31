@@ -40,3 +40,7 @@ h2 {
 #ButtonImage {
     height: 50%;
 }
+
+textarea:focus, input:focus{
+    outline: none;
+}
