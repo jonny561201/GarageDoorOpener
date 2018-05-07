@@ -4,4 +4,8 @@ export class garageDoorApi {
   public static getGarageDoorStatus(): string {
     return `${garageDoorApi.baseUrl}/garageDoor/status`;
   }
+
+  public static postGarageDoorState(): string {
+    return `${garageDoorApi.baseUrl}/garageDoor/state`;
+  }
 }
