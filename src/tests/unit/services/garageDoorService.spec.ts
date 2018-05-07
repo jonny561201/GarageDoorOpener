@@ -43,7 +43,6 @@ describe('garageDoorService', () => {
 
       backend.connections.subscribe(
         (connection) => {
-          debugger;
           expect(connection.request.method).toBe(RequestMethod.Post);
           expect(connection.request._body).toEqual(updatedState);
         });
