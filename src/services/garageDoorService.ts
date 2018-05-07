@@ -8,12 +8,14 @@ import {Injectable} from "@angular/core";
 @Injectable()
 export class garageDoorService {
 
-  constructor(private http: Http) {
-
-  }
+  constructor(private http: Http) {}
 
   public getGarageDoorStatus(): Observable<garageDoorStatus> {
-    return this.http.get(`/videos`)
-      .map(res => res.json().data);
+    return this.http.get(`/test`)
+      .map(res => res.json());
+  }
+
+  public postGarageDoorState(updatedState: garageDoorStatus): Observable<garageDoorStatus> {
+    return this.http.post('/test', updatedState).map(res => res.json());
   }
 }
