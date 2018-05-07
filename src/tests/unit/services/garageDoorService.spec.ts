@@ -3,6 +3,7 @@ import {HttpModule, RequestMethod, Response, ResponseOptions, XHRBackend} from '
 import {MockBackend} from '@angular/http/testing';
 import {garageDoorService} from "../../../services/garageDoorService";
 import {garageDoorStatus} from "../../../services/garageDoorModels";
+import {garageDoorApi} from "../../../services/endpoints";
 
 describe('garageDoorService', () => {
   let backend;
@@ -35,16 +36,34 @@ describe('garageDoorService', () => {
         expect(item).toEqual(mockResponse);
       });
     });
+
+    it('should call get request with correct url', () => {
+      backend.connections.subscribe(
+        (connection) => {
+          expect(connection.request.url).toEqual(garageDoorApi.getGarageDoorStatus());
+        });
+
+      service.getGarageDoorStatus().subscribe();
+    });
   });
 
   describe('postGarageDoorState', () => {
-    it('should call post request with correct object', () => {
-      const updatedState = new garageDoorStatus('Closed');
+    const updatedState = new garageDoorStatus('Closed');
 
+    it('should call post request with correct object', () => {
       backend.connections.subscribe(
         (connection) => {
           expect(connection.request.method).toBe(RequestMethod.Post);
           expect(connection.request._body).toEqual(updatedState);
+        });
+
+      service.postGarageDoorState(updatedState).subscribe();
+    });
+
+    it('should call post request with correct url', () => {
+      backend.connections.subscribe(
+        (connection) => {
+          expect(connection.request.url).toEqual(garageDoorApi.postGarageDoorState());
         });
 
       service.postGarageDoorState(updatedState).subscribe();
