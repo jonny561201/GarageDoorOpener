@@ -29,8 +29,16 @@ describe('LoginPageComponent', () => {
       fixture.detectChanges();
 
       const compiled = fixture.debugElement.nativeElement;
-      expect(compiled.querySelector('#username')).toBeTruthy();
-      expect(compiled.querySelector('#password')).toBeTruthy();
+      expect(compiled.querySelector('input#username')).toBeTruthy();
+      expect(compiled.querySelector('input#password')).toBeTruthy();
+    });
+
+    it('should have a submit button to transmit login credentials', () => {
+      const fixture = TestBed.createComponent(LoginPageComponent);
+      fixture.detectChanges();
+
+      const compiled = fixture.debugElement.nativeElement;
+      expect(compiled.querySelector('button#submit')).toBeTruthy();
     });
   });
 });
