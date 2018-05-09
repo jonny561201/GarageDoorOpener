@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login/loginPage/loginPage.component';
+import { FormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { LoginPageComponent } from './login/loginPage/loginPage.component';
     LoginPageComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

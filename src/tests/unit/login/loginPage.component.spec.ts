@@ -1,6 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { LoginPageComponent } from '../../../app/login/loginPage/loginPage.component';
+import {FormsModule} from "@angular/forms";
+import {By} from "@angular/platform-browser";
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
@@ -8,6 +10,7 @@ describe('LoginPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [ LoginPageComponent ]
     })
     .compileComponents();
@@ -40,5 +43,15 @@ describe('LoginPageComponent', () => {
       const compiled = fixture.debugElement.nativeElement;
       expect(compiled.querySelector('button#submit')).toBeTruthy();
     });
+
+    it('should display error message when no username supplied', async(() => {
+      const compiled = fixture.debugElement.query(By.css('#username'));
+      compiled.nativeElement.value = 'test';
+      compiled.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      const inEl =  fixture.debugElement.query(By.css('#username'));
+      expect(inEl.nativeElement.value).toContain('test')
+    }));
   });
 });

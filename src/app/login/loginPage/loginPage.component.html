@@ -1,22 +1,32 @@
-<form>
-  <div>
-    <label>Username</label>
-    <input
-      type="text"
-      name="username"
-      id="username">
-  </div>
-  <div>
-    <label>Password</label>
-    <input
-      type="text"
-      name="password"
-      id="password">
-  </div>
-  <div >
-    <button
-      id="submit"
-      type="submit">Login
-    </button>
-  </div>
-</form>
+<div>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <div>
+      <label>Username</label>
+      <input
+        #username="ngModel"
+        ngModel
+        type="text"
+        name="username"
+        id="username"
+        required>
+      <p *ngIf="username.invalid && username.touched">Username is required</p>
+    </div>
+    <div>
+      <label>Password</label>
+      <input
+        #password="ngModel"
+        ngModel
+        type="password"
+        name="password"
+        id="password">
+    </div>
+    <div>
+      <button
+        #submit
+        name="submit"
+        id="submit"
+        type="submit">Login
+      </button>
+    </div>
+  </form>
+</div>
