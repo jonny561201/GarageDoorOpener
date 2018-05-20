@@ -1,4 +1,4 @@
-import {garageDoorStatus} from "./garageDoorModels";
+import {garageDoorLogin, garageDoorStatus} from "./garageDoorModels";
 import {Http} from "@angular/http";
 
 import 'rxjs/add/operator/map';
@@ -18,6 +18,11 @@ export class garageDoorService {
 
   public postGarageDoorState(updatedState: garageDoorStatus): Observable<garageDoorStatus> {
     return this.http.post(garageDoorApi.postGarageDoorState(), updatedState)
+      .map(res => res.json());
+  }
+
+  public postGarageDoorLogin(credentials: garageDoorLogin): Observable<string> {
+    return this.http.post('', credentials)
       .map(res => res.json());
   }
 }

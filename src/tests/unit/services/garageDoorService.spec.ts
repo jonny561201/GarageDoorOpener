@@ -69,4 +69,16 @@ describe('garageDoorService', () => {
       service.postGarageDoorState(updatedState).subscribe();
     });
   });
+
+  describe('postGarageDoorLogin', () => {
+    it('should call post request with correct object', () => {
+      const loginBody = {'username': 'testName', 'password': 'testPass'};
+
+      backend.connections.subscribe((connection) => {
+        expect(connection.request._body).toEqual(loginBody);
+      });
+
+      service.postGarageDoorLogin(loginBody).subscribe();
+    });
+  });
 });
