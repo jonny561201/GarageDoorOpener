@@ -8,4 +8,8 @@ export class garageDoorApi {
   public static postGarageDoorState(): string {
     return `${garageDoorApi.baseUrl}/garageDoor/state`;
   }
+
+  public static postGarageDoorLogin(): string {
+    return `${garageDoorApi.baseUrl}/garageDoor/login`;
+  }
 }
