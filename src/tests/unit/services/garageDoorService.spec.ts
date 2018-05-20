@@ -71,11 +71,19 @@ describe('garageDoorService', () => {
   });
 
   describe('postGarageDoorLogin', () => {
-    it('should call post request with correct object', () => {
-      const loginBody = {'username': 'testName', 'password': 'testPass'};
+    const loginBody = {'username': 'testName', 'password': 'testPass'};
 
+    it('should call post request with correct object', () => {
       backend.connections.subscribe((connection) => {
         expect(connection.request._body).toEqual(loginBody);
+      });
+
+      service.postGarageDoorLogin(loginBody).subscribe();
+    });
+
+    it('should call post request with correct url', () => {
+      backend.connections.subscribe((connection) => {
+        expect(connection.request.url).toEqual(garageDoorApi.postGarageDoorLogin());
       });
 
       service.postGarageDoorLogin(loginBody).subscribe();

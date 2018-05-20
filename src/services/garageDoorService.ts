@@ -22,7 +22,7 @@ export class garageDoorService {
   }
 
   public postGarageDoorLogin(credentials: garageDoorLogin): Observable<string> {
-    return this.http.post('', credentials)
+    return this.http.post(garageDoorApi.postGarageDoorLogin(), credentials)
       .map(res => res.json());
   }
 }
