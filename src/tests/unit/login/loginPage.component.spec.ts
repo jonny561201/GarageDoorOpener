@@ -2,7 +2,6 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 
 import { LoginPageComponent } from '../../../app/login/loginPage/loginPage.component';
 import {FormsModule} from "@angular/forms";
-import {By} from "@angular/platform-browser";
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;

@@ -1,92 +1,37 @@
-import {TestBed} from '@angular/core/testing';
-import {HttpModule, RequestMethod, Response, ResponseOptions, XHRBackend} from '@angular/http';
-import {MockBackend} from '@angular/http/testing';
-import {garageDoorService} from "../../../services/garageDoorService";
-import {garageDoorStatus} from "../../../services/garageDoorModels";
-import {garageDoorApi} from "../../../services/endpoints";
+import {async, fakeAsync, TestBed} from "@angular/core/testing";
+import {garageDoorAPI} from "../../../services/garageDoorAPI";
+import {GarageDoorService} from "../../../services/garageDoorService";
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/observable/of'
+import {garageDoorLogin} from "../../../services/garageDoorModels";
+
+export class garageDoorApiStub {
+  public jwt = 'abc.123.def';
+
+  public postGarageDoorLogin(credentials: garageDoorLogin): Observable<string> {
+    return Observable.of(this.jwt);
+  }
+}
 
 describe('garageDoorService', () => {
-  let backend;
   let service;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
       providers: [
-        garageDoorService,
-        { provide: XHRBackend, useClass: MockBackend },
+        GarageDoorService,
+        { provide: garageDoorAPI, useClass: garageDoorApiStub },
       ]
     });
 
-    backend = TestBed.get(XHRBackend);
-    service = TestBed.get(garageDoorService);
+    service = TestBed.get(GarageDoorService);
   });
 
-  describe('getGarageDoorStatus()', () => {
-    it('should return garage door status', () => {
-      const mockResponse: garageDoorStatus = new garageDoorStatus('Open');
+  describe('garageDoorLogin', () => {
+    it('should store jwt token', () => {
+      const actual = service.garageDoorLogin()
 
-      backend.connections.subscribe((connection) => {
-        connection.mockRespond(new Response(new ResponseOptions({
-          body: mockResponse
-        })));
-      });
-
-      service.getGarageDoorStatus().subscribe((item) => {
-        expect(item).toEqual(mockResponse);
-      });
-    });
-
-    it('should call get request with correct url', () => {
-      backend.connections.subscribe(
-        (connection) => {
-          expect(connection.request.url).toEqual(garageDoorApi.getGarageDoorStatus());
-        });
-
-      service.getGarageDoorStatus().subscribe();
-    });
-  });
-
-  describe('postGarageDoorState', () => {
-    const updatedState = new garageDoorStatus('Closed');
-
-    it('should call post request with correct object', () => {
-      backend.connections.subscribe(
-        (connection) => {
-          expect(connection.request.method).toBe(RequestMethod.Post);
-          expect(connection.request._body).toEqual(updatedState);
-        });
-
-      service.postGarageDoorState(updatedState).subscribe();
-    });
-
-    it('should call post request with correct url', () => {
-      backend.connections.subscribe(
-        (connection) => {
-          expect(connection.request.url).toEqual(garageDoorApi.postGarageDoorState());
-        });
-
-      service.postGarageDoorState(updatedState).subscribe();
-    });
-  });
-
-  describe('postGarageDoorLogin', () => {
-    const loginBody = {'username': 'testName', 'password': 'testPass'};
-
-    it('should call post request with correct object', () => {
-      backend.connections.subscribe((connection) => {
-        expect(connection.request._body).toEqual(loginBody);
-      });
-
-      service.postGarageDoorLogin(loginBody).subscribe();
-    });
-
-    it('should call post request with correct url', () => {
-      backend.connections.subscribe((connection) => {
-        expect(connection.request.url).toEqual(garageDoorApi.postGarageDoorLogin());
-      });
-
-      service.postGarageDoorLogin(loginBody).subscribe();
+      expect(actual).toEqual('abc.123.def');
     });
   });
 });
