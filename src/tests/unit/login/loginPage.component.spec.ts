@@ -43,14 +43,26 @@ describe('LoginPageComponent', () => {
       expect(compiled.querySelector('button#submit')).toBeTruthy();
     });
 
-    it('should display error message when no username supplied', async(() => {
-      const compiled = fixture.debugElement.query(By.css('#username'));
-      compiled.nativeElement.value = 'test';
-      compiled.nativeElement.dispatchEvent(new Event('input'));
+    it('should display error message when no username supplied', fakeAsync(() => {
       fixture.detectChanges();
+      const compiled = fixture.debugElement.nativeElement;
+      const initialParagraph = compiled.querySelector('p');
+      expect(initialParagraph).toBeFalsy();
 
-      const inEl =  fixture.debugElement.query(By.css('#username'));
-      expect(inEl.nativeElement.value).toContain('test')
+      let userName = compiled.querySelector('#username');
+      userName.value = 'test';
+      // userName.touched = true;
+      userName.dispatchEvent(new Event('input'));
+      // userName.nativeElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      tick();
+
+      userName = compiled.querySelector('#username');
+
+      debugger;
+      expect(userName.value).toEqual('test');
+      const updatedParagraph = compiled.querySelector('p');
+      expect(updatedParagraph.textContent).toContain('Username is required')
     }));
   });
 });

@@ -6,11 +6,11 @@ import {Injectable} from "@angular/core";
 export class GarageDoorService {
   constructor(private garageDoorApi: garageDoorAPI) {}
 
-  public garageDoorLogin(credentials: garageDoorLogin): string {
-    let jwt: string = null;
+  public garageDoorLogin(credentials: garageDoorLogin): boolean {
+    let succes: boolean = false;
     this.garageDoorApi.postGarageDoorLogin(credentials).subscribe((res) => {
-      jwt = res;
+      succes = true;
     });
-    return jwt;
+    return succes;
   }
 }
